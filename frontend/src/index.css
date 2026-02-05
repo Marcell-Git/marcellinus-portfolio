@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  :root {
+    --primary-bg: #fdfbf7;
+    --secondary-bg: #f3f0e9;
+    --text-main: #2d2a26;
+    --text-secondary: #5c5852;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --white: #ffffff;
+    --transition: all 0.3s ease;
+  }
+
+  html {
+     scroll-behavior: smooth;
+     scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-primary-bg text-text-main font-sans antialiased overflow-x-hidden;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold mb-4 leading-tight;
+  }
+
+  p {
+    @apply mb-6;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-[1200px] mx-auto px-8;
+  }
+  
+  .section-padding {
+    @apply py-20;
+  }
+
+  .section-title {
+    @apply text-4xl text-center mb-12 relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply block w-[60px] h-[4px] bg-accent mx-auto mt-2 rounded-sm;
+  }
+}
