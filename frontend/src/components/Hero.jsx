@@ -6,10 +6,12 @@ import profileImg from '../assets/Profile.jpeg';
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-20 bg-primary-bg">
-      <div className="container grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] items-center gap-16 lg:gap-8 text-center lg:text-left">
+    <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-28 pb-32 lg:pt-20 lg:pb-0 bg-primary-bg">
+      <div className="container grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] items-center gap-12 lg:gap-8 text-center lg:text-left">
+        
+        {/* BAGIAN TULISAN (Text) */}
         <motion.div 
-          className="flex flex-col justify-center lg:block"
+          className="flex flex-col justify-center lg:block order-2 lg:order-1"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
@@ -61,7 +63,7 @@ const Hero = () => {
           </motion.p>
           
           <motion.div 
-            className="flex gap-6 mb-12 justify-center lg:justify-start"
+            className="flex gap-6 mb-0 lg:mb-12 justify-center lg:justify-start"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -72,13 +74,13 @@ const Hero = () => {
           </motion.div>
         </motion.div>
         
+        {/* BAGIAN GAMBAR (Image) */}
         <motion.div 
-           className="flex justify-center relative"
+           className="flex justify-center relative order-1 lg:order-2"
            initial={{ opacity: 0, scale: 0.5 }}
            animate={{ opacity: 1, scale: 1 }}
            transition={{ duration: 0.8, delay: 0.2 }}
         >
-           {/* Profile Image Container */}
            <motion.div 
              className="w-[280px] h-[350px] sm:w-[350px] sm:h-[450px] bg-gradient-to-tr from-accent to-orange-200 rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] border-white/80 relative z-20"
              whileHover={{ scale: 1.05, rotate: 0 }}
@@ -88,22 +90,32 @@ const Hero = () => {
               <img src={profileImg} alt="Marcellinus Renditta Mardyanto" className="w-full h-full object-cover" />
            </motion.div>
            
-           {/* Decorative background elements behind image */}
            <div className="absolute top-10 -right-10 w-[200px] h-[200px] bg-accent/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
            <div className="absolute -bottom-5 -left-5 w-[150px] h-[150px] bg-orange-300/30 rounded-full blur-3xl -z-10"></div>
         </motion.div>
 
         <motion.div 
-           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-sm text-text-secondary opacity-70"
+           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-70"
            initial={{ opacity: 0 }}
-           animate={{ opacity: 1, y: [0, 10, 0] }}
-           transition={{ 
-             opacity: { delay: 1, duration: 1 },
-             y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
-           }}
+           animate={{ opacity: 1 }}
+           transition={{ delay: 1, duration: 1 }}
         >
-           <span style={{ fontSize: '0.8rem', letterSpacing: '2px', marginBottom: '8px' }}>SCROLL DOWN</span>
-           <div style={{ width: '1px', height: '40px', background: 'var(--text-secondary)' }}></div>
+           <div className="w-[30px] h-[50px] rounded-full border-2 border-text-secondary flex justify-center items-start p-2">
+             <motion.div
+               className="w-[6px] h-[6px] rounded-full bg-text-secondary"
+               animate={{
+                  y: [0, 18, 0], 
+                  opacity: [1, 0.3, 1] 
+               }}
+               transition={{
+                 duration: 1.5,
+                 repeat: Infinity,
+                 repeatType: "loop",
+                 ease: "easeInOut"
+               }}
+             />
+           </div>
+           <span className="text-text-secondary text-xs mt-2 tracking-widest">SCROLL</span>
         </motion.div>
       </div>
     </section>
