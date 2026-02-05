@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub } from 'react-icons/fi';
-import bioskop from '../assets/bioskop.svg';
-import reusemart from '../assets/reusemart.svg';
-import wbs from '../assets/wbs.svg';
+import bioskop from '../assets/bioskop.png';
+import reusemart from '../assets/reuse.png';
+import wbs from '../assets/wbs.png';
 
 const Projects = () => {
   const featuredProjects = [

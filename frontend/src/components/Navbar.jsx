@@ -37,15 +37,13 @@ const Navbar = () => {
               <span className="absolute w-0 h-[2px] bottom-[-4px] left-0 bg-accent transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
-          <a href="/cv.pdf" className="px-6 py-2.5 bg-accent text-white rounded-md font-semibold hover:bg-accent-hover hover:-translate-y-0.5 transition-all shadow-sm" download>Download CV</a>
+          <a href="/CV_Marcellinus.pdf" className="px-6 py-2.5 bg-accent text-white rounded-md font-semibold hover:bg-accent-hover hover:-translate-y-0.5 transition-all shadow-sm" download>Download CV</a>
         </div>
 
-        {/* Mobile Toggle */}
         <button className="md:hidden text-text-main" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Navigation">
           {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
 
-        {/* Mobile Menu Overlay */}
         <AnimatePresence>
           {isOpen && (
             <motion.div 
@@ -65,7 +63,7 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <a href="/cv.pdf" className="px-6 py-2.5 bg-accent text-white rounded-md font-semibold hover:bg-accent-hover w-full text-center" download onClick={() => setIsOpen(false)}>Download CV</a>
+              <a href="/CV_Marcellinus.pdf" className="px-6 py-2.5 bg-accent text-white rounded-md font-semibold hover:bg-accent-hover w-full text-center" download onClick={() => setIsOpen(false)}>Download CV</a>
             </motion.div>
           )}
         </AnimatePresence>
