@@ -19,7 +19,7 @@ const Projects = () => {
       title: 'Website ReUseMart',
       desc: 'A web-based application for buying and selling used goods.',
       tech: ['React.js', 'Laravel', 'MySQL', 'Bootstrap'],
-      github: 'https://github.com/Marcell-Git/ReUseMart',
+      github: 'https://github.com/Agplhh/Frontendp3l',
       demo: '#',
       image: reusemart
     },
