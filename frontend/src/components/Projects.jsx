@@ -11,7 +11,7 @@ const Projects = () => {
       title: 'Online Cinema Ticketing Platform',
       desc: 'A web-based application for searching movies, viewing showtimes, and booking cinema tickets online.',
       tech: ['React.js', 'Laravel', 'MySQL', 'Bootstrap'],
-      github: 'https://github.com/Marcell-Git/Bioskop_Frontend',
+      github: ['https://github.com/Marcell-Git/Bioskop_Frontend', 'https://github.com/rendyputrayana/backendp3l'],
       demo: '#',
       image: bioskop
     },
@@ -19,7 +19,7 @@ const Projects = () => {
       title: 'Website ReUseMart',
       desc: 'A web-based application for buying and selling used goods.',
       tech: ['React.js', 'Laravel', 'MySQL', 'Bootstrap'],
-      github: 'https://github.com/Agplhh/Frontendp3l',
+      github: ['https://github.com/Agplhh/Frontendp3l', 'https://github.com/Agplhh/Backendp3l'],
       demo: '#',
       image: reusemart
     },
@@ -27,18 +27,27 @@ const Projects = () => {
       title: 'WBS Pemerintahan Kabupaten Klaten',
       desc: 'A web-based application for reporting complaints and suggestions to the government of Klaten Regency.',
       tech: ['React.js','Laravel', 'MySQL', 'Tailwind CSS'],
-      github: 'https://github.com/Marcell-Git/Frontend-WBS',
+      github: ['https://github.com/Marcell-Git/Frontend-WBS', 'https://github.com/Marcell-Git/Backend-WBS'],
       demo: '#',
       image: wbs
     }
   ];
+
+  const handleGithubClick = (e, githubUrl) => {
+    if (Array.isArray(githubUrl)) {
+      e.preventDefault();
+      githubUrl.forEach(url => {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
+    }
+  };
 
   const otherProjects = [
     {
       title: 'GYM Application',
       desc: 'A mobile application for booking sports classes, viewing schedules, and borrowing sports equipment.',
       tech: ['Flutter', 'Laravel', 'MySQL'],
-      github: 'https://github.com/AndreasKuncoro11788/2_B_Gym',
+      github: ['https://github.com/AndreasKuncoro11788/2_B_Gym', 'https://github.com/Marcell-Git/API_Gym'],
     },
     {
       title: 'Portfolio V1',
@@ -80,7 +89,13 @@ const Projects = () => {
                             ))}
                         </div>
                         <div className="flex gap-4">
-                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-text-main hover:text-accent transition-colors">
+                            <a 
+                                href={Array.isArray(project.github) ? project.github[0] : project.github} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center gap-2 text-sm font-semibold text-text-main hover:text-accent transition-colors"
+                                onClick={(e) => handleGithubClick(e, project.github)}
+                            >
                                 <FiGithub /> GitHub
                             </a>
                         </div>
@@ -103,7 +118,13 @@ const Projects = () => {
                 >
                     <div className="flex justify-between items-start mb-4">
                         <h4 className="text-lg font-bold text-text-main">{project.title}</h4>
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent transition-colors text-xl">
+                        <a 
+                            href={Array.isArray(project.github) ? project.github[0] : project.github} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-text-secondary hover:text-accent transition-colors text-xl"
+                            onClick={(e) => handleGithubClick(e, project.github)}
+                        >
                             <FiGithub />
                         </a>
                     </div>
