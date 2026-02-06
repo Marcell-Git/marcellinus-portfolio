@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { FiGithub } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiGithub, FiX, FiExternalLink } from 'react-icons/fi';
 import bioskop from '../assets/bioskop.png';
 import reusemart from '../assets/reuse.png';
 import wbs from '../assets/wbs.png';
@@ -33,12 +33,19 @@ const Projects = () => {
     }
   ];
 
+  const [activeModal, setActiveModal] = React.useState(null);
+
+  const getLinkLabel = (url) => {
+    const lowerUrl = url.toLowerCase();
+    if (lowerUrl.includes('front')) return 'Frontend Repository';
+    if (lowerUrl.includes('back') || lowerUrl.includes('api')) return 'Backend / API Repository';
+    return 'Repository Link';
+  };
+
   const handleGithubClick = (e, githubUrl) => {
-    if (Array.isArray(githubUrl)) {
+    if (Array.isArray(githubUrl) && githubUrl.length > 1) {
       e.preventDefault();
-      githubUrl.forEach(url => {
-        window.open(url, '_blank', 'noopener,noreferrer');
-      });
+      setActiveModal(githubUrl);
     }
   };
 
@@ -139,6 +146,58 @@ const Projects = () => {
         </div>
 
       </div>
+
+      <AnimatePresence>
+        {activeModal && (
+          <motion.div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveModal(null)}
+          >
+            <motion.div 
+              className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden relative"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 className="text-xl font-bold text-text-main">Select Repository</h3>
+                <button 
+                  onClick={() => setActiveModal(null)}
+                  className="p-2 hover:bg-gray-200 rounded-full transition-colors text-text-secondary"
+                >
+                  <FiX size={20} />
+                </button>
+              </div>
+              
+              <div className="p-6 flex flex-col gap-4">
+                <p className="text-text-secondary text-sm mb-2">
+                  This project consists of multiple repositories. Please select which one you would like to view:
+                </p>
+                {activeModal.map((url, idx) => (
+                  <a 
+                    key={idx}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex justify-between items-center p-4 rounded-lg border border-gray-200 hover:border-accent hover:bg-secondary-bg hover:text-accent group transition-all duration-200"
+                    onClick={() => setActiveModal(null)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <FiGithub className="text-xl" />
+                      <span className="font-semibold">{getLinkLabel(url)}</span>
+                    </div>
+                    <FiExternalLink className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
