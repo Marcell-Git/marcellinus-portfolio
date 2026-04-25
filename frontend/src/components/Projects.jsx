@@ -4,6 +4,7 @@ import { FiGithub, FiX, FiExternalLink } from 'react-icons/fi';
 import bioskop from '../assets/bioskop.png';
 import reusemart from '../assets/reuse.png';
 import wbs from '../assets/wbs.png';
+import rsud from '../assets/Profil_rsud.png';
 
 const Projects = () => {
   const featuredProjects = [
@@ -28,8 +29,16 @@ const Projects = () => {
       desc: 'A web-based application for reporting complaints and suggestions to the government of Klaten Regency.',
       tech: ['React.js','Laravel', 'MySQL', 'Tailwind CSS'],
       github: ['https://github.com/Marcell-Git/Frontend-WBS', 'https://github.com/Marcell-Git/Backend-WBS'],
-      demo: '#',
+      demo: 'https://wbs.dev.klaten.go.id/',
       image: wbs
+    },
+    {
+      title: 'Profil RSUD Bagas Waras Klaten',
+      desc: 'A web-based application for the official profile of RSUD Bagas Waras Klaten.',
+      tech: ['React.js','Laravel', 'MySQL', 'Tailwind CSS'],
+      github: ['https://github.com/Marcell-Git/Frontend-RSUD', 'https://github.com/Marcell-Git/Backend-RSUD'],
+      demo: '#',
+      image: rsud
     }
   ];
 
