@@ -62,17 +62,17 @@ const Skills = () => {
         </motion.div>
 
         <motion.div
-          className="rounded-md border border-line bg-side overflow-hidden"
+          className="rounded-md border border-line bg-side overflow-hidden flex flex-col xl:h-0 xl:min-h-full"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="h-9 flex items-center justify-between px-4 border-b border-line font-mono text-[11px] tracking-widest text-muted">
+          <div className="h-9 shrink-0 flex items-center justify-between px-4 border-b border-line font-mono text-[11px] tracking-widest text-muted">
             EXTENSIONS: INSTALLED
             <span className="rounded-full bg-accent/20 text-accent px-2 py-0.5 tracking-normal">{extensions.length}</span>
           </div>
-          <ul className="m-0 p-0 list-none">
+          <ul className="m-0 p-0 list-none xl:flex-1 xl:min-h-0 xl:overflow-y-auto">
             {extensions.map((ext) => (
               <li key={ext.name} className="flex items-center gap-3 px-4 py-2.5 border-b border-line/60 last:border-0 hover:bg-white/[0.03]">
                 <div className="w-9 h-9 shrink-0 rounded bg-surface flex items-center justify-center text-xl">{ext.icon}</div>
