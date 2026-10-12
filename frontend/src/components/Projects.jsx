@@ -134,15 +134,17 @@ const Projects = () => {
                             ))}
                         </div>
                         <div className="flex flex-wrap gap-3">
-                            <a
-                                href={Array.isArray(project.github) ? project.github[0] : project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-ghost !py-1.5 !text-xs"
-                                onClick={(e) => handleGithubClick(e, project.github)}
-                            >
-                                <FiGithub /> Source
-                            </a>
+                            {project.github !== '#' && (
+                              <a
+                                  href={Array.isArray(project.github) ? project.github[0] : project.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="btn btn-ghost !py-1.5 !text-xs"
+                                  onClick={(e) => handleGithubClick(e, project.github)}
+                              >
+                                  <FiGithub /> Source
+                              </a>
+                            )}
                             {project.demo !== '#' && (
                               <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn-primary !py-1.5 !text-xs">
                                 <FiExternalLink /> Live site
@@ -159,14 +161,20 @@ const Projects = () => {
           <L><K>export const</K> <F>others</F>: <N>Project</N>[] = [</L>
         </Code>
         <div className="flex flex-col gap-3 pl-0 sm:pl-[3.25rem]">
-            {otherProjects.map((project, index) => (
-                <motion.a
+            {otherProjects.map((project, index) => {
+              const hasRepo = project.github !== '#';
+              const Row = hasRepo ? motion.a : motion.div;
+              const linkProps = hasRepo ? {
+                href: Array.isArray(project.github) ? project.github[0] : project.github,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+                onClick: (e) => handleGithubClick(e, project.github),
+              } : {};
+              return (
+                <Row
                    key={project.title}
-                   href={Array.isArray(project.github) ? project.github[0] : project.github}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   onClick={(e) => handleGithubClick(e, project.github)}
-                   className="group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 rounded-md border border-line bg-surface/60 px-4 py-3 hover:border-accent/60 transition-colors"
+                   {...linkProps}
+                   className={`group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 rounded-md border border-line bg-surface/60 px-4 py-3 transition-colors ${hasRepo ? 'hover:border-accent/60' : ''}`}
                    initial={{ opacity: 0, x: -16 }}
                    whileInView={{ opacity: 1, x: 0 }}
                    viewport={{ once: true, margin: "-40px" }}
@@ -181,9 +189,10 @@ const Projects = () => {
                             <span key={t} className="chip">{t}</span>
                         ))}
                     </div>
-                    <VscChevronRight className="hidden sm:block text-muted group-hover:text-accent" />
-                </motion.a>
-            ))}
+                    {hasRepo && <VscChevronRight className="hidden sm:block text-muted group-hover:text-accent" />}
+                </Row>
+              );
+            })}
         </div>
         <Code className="mt-4">
           <L>];</L>
