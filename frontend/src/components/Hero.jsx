@@ -8,10 +8,10 @@ import Frame from './Frame';
 
 // Floating sticky tags scattered around the name (hidden on small screens)
 const floatingTags = [
-  { label: 'React.js', className: 'bg-mint -rotate-6 top-[8%] left-[6%]' },
-  { label: 'Laravel', className: 'bg-peach rotate-3 top-[4%] right-[8%]' },
-  { label: 'Software Engineer', className: 'bg-yellow rotate-2 top-[46%] left-[2%]' },
-  { label: 'Tailwind CSS', className: 'bg-sky -rotate-3 top-[44%] right-[3%]' },
+  { label: 'React.js', className: 'bg-white -rotate-2 top-[8%] left-[6%]' },
+  { label: 'Laravel', className: 'bg-orange text-white rotate-1 top-[4%] right-[8%]' },
+  { label: 'Software Engineer', className: 'bg-yellow top-[46%] left-[2%]' },
+  { label: 'MySQL', className: 'bg-army text-white -rotate-1 top-[44%] right-[3%]' },
 ];
 
 const pop = (delay) => ({
@@ -43,18 +43,18 @@ const Hero = () => {
           <motion.img
             src={profileImg}
             alt=""
-            className="hidden md:block absolute bottom-[14%] left-[10%] w-14 h-14 rounded-full object-cover border-2 border-white shadow-lg"
+            className="hidden md:block absolute bottom-[14%] left-[10%] w-14 h-14 object-cover border-2 border-ink shadow-[4px_4px_0_var(--ink)] grayscale"
             {...pop(0.8)}
           />
           <motion.img
             src={aboutImg}
             alt=""
-            className="hidden md:block absolute bottom-[20%] right-[10%] w-14 h-14 rounded-full object-cover border-2 border-white shadow-lg"
+            className="hidden md:block absolute bottom-[20%] right-[10%] w-14 h-14 object-cover border-2 border-ink shadow-[4px_4px_0_var(--ink)] grayscale"
             {...pop(0.9)}
           />
 
-          <motion.p className="font-hand text-xl text-ink-soft mb-2" {...pop(0.1)}>
-            hey, i'm ~
+          <motion.p className="font-hand text-xl text-orange mb-2 -rotate-2" {...pop(0.1)}>
+            Hey, I'm
           </motion.p>
 
           <motion.div className="inline-block" {...pop(0.2)}>
@@ -63,19 +63,18 @@ const Hero = () => {
                 Marcell
               </h1>
               <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap mono-label bg-ink text-white px-2 py-0.5 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow animate-pulse" />
                 Open to work &amp; new problems
               </span>
             </Frame>
           </motion.div>
 
           <motion.h2
-            className="mt-14 text-2xl sm:text-4xl font-bold tracking-tight leading-snug max-w-[640px] mx-auto"
+            className="mt-14 text-2xl sm:text-4xl font-extrabold uppercase tracking-tight leading-snug max-w-[640px] mx-auto"
             {...pop(0.35)}
           >
             I build web apps that{' '}
-            <span className="inline-block bg-yellow px-1.5 -rotate-1">just work</span>{' '}
-            <span className="text-pink">✿</span>
+            <span className="inline-block bg-ink text-yellow px-2">just work.</span>
           </motion.h2>
 
           <motion.div className="font-mono text-sm sm:text-base text-ink-soft mt-4 h-6" {...pop(0.45)}>
@@ -97,7 +96,7 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="w-10 h-10 flex items-center justify-center border border-ink bg-white hover:bg-yellow transition-colors"
+              className="w-10 h-10 flex items-center justify-center border-2 border-ink bg-white hover:bg-yellow transition-colors"
             >
               <FiGithub />
             </a>
@@ -106,13 +105,13 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="w-10 h-10 flex items-center justify-center border border-ink bg-white hover:bg-yellow transition-colors"
+              className="w-10 h-10 flex items-center justify-center border-2 border-ink bg-white hover:bg-yellow transition-colors"
             >
               <FiLinkedin />
             </a>
           </motion.div>
 
-          <p className="font-hand text-ink-soft mt-6 text-lg">
+          <p className="mono-label text-ink-soft mt-6">
             Marcellinus Renditta Mardyanto
           </p>
         </div>

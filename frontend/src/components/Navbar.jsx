@@ -31,7 +31,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-md border-b-2 border-ink">
       <div className="container flex justify-between items-center h-14">
         <div className="hidden md:flex gap-1 items-center">
           {navLinks.map((link) => (
@@ -52,13 +52,13 @@ const Navbar = () => {
 
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex gap-1.5" aria-hidden="true">
-            <span className="w-3.5 h-3.5 rounded-full bg-orange border border-ink/20" />
-            <span className="w-3.5 h-3.5 rounded-full bg-pink border border-ink/20" />
-            <span className="w-3.5 h-3.5 rounded-full bg-green border border-ink/20" />
+            <span className="w-3.5 h-3.5 rounded-full bg-orange border border-ink" />
+            <span className="w-3.5 h-3.5 rounded-full bg-yellow border border-ink" />
+            <span className="w-3.5 h-3.5 rounded-full bg-army border border-ink" />
           </div>
           <a
             href="#contact"
-            className={`hidden md:flex mono-label items-center gap-1.5 border border-ink px-3 py-1.5 font-bold transition-colors ${
+            className={`hidden md:flex mono-label items-center gap-1.5 border-2 border-ink px-3 py-1.5 font-bold transition-colors ${
               active === "#contact" ? "bg-ink text-white" : "hover:bg-ink hover:text-white"
             }`}
           >

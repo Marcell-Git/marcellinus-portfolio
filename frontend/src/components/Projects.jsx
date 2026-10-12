@@ -7,10 +7,10 @@ import wbs from '../assets/wbs.png';
 import rsud from '../assets/Profil_rsud.png';
 
 const cardThemes = [
-  { tab: 'bg-blue text-white', dot: 'bg-white', body: 'bg-ink text-white', muted: 'text-white/70', chip: 'border-white/30 text-white/80' },
-  { tab: 'bg-ink text-white', dot: 'bg-yellow', body: 'bg-yellow text-ink', muted: 'text-ink/75', chip: 'border-ink/40' },
-  { tab: 'bg-pink text-white', dot: 'bg-white', body: 'bg-blue text-white', muted: 'text-white/75', chip: 'border-white/40 text-white/85' },
-  { tab: 'bg-green text-white', dot: 'bg-white', body: 'bg-white text-ink border border-ink/15', muted: 'text-ink-soft', chip: 'border-ink/30' },
+  { tab: 'bg-yellow text-ink', dot: 'bg-ink', body: 'bg-ink text-white', muted: 'text-white/70', chip: 'border-white/30 text-white/80' },
+  { tab: 'bg-ink text-white', dot: 'bg-yellow', body: 'bg-yellow text-ink card-hard', muted: 'text-ink/75', chip: 'border-ink/50' },
+  { tab: 'bg-orange text-white', dot: 'bg-white', body: 'bg-army text-white', muted: 'text-white/75', chip: 'border-white/40 text-white/85' },
+  { tab: 'bg-ink text-white', dot: 'bg-orange', body: 'bg-white text-ink card-hard', muted: 'text-ink-soft', chip: 'border-ink/40' },
 ];
 
 const Projects = () => {
@@ -84,7 +84,7 @@ const Projects = () => {
     <section id="projects" className="section-padding relative">
       <div className="container">
         <div className="mb-14">
-          <span className="font-hand text-xl text-ink-soft block -rotate-2">explore my work</span>
+          <span className="font-hand text-xl text-orange block -rotate-2 mb-2">built &amp; shipped</span>
           <h2 className="pixel-title m-0">Featured Works</h2>
         </div>
 
@@ -140,7 +140,7 @@ const Projects = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="bg-white p-2 shadow-xl rotate-1 transition-transform duration-500 group-hover:rotate-0 self-center">
+                        <div className="bg-white p-2 border-2 border-ink shadow-[6px_6px_0_var(--orange)] self-center transition-transform duration-300 group-hover:-translate-y-1">
                             <div className="aspect-[16/10] overflow-hidden bg-gray-100">
                               <img
                                 src={project.image}
@@ -157,18 +157,18 @@ const Projects = () => {
         </div>
 
         <div className="text-center mb-10">
-          <span className="font-hand text-xl text-ink-soft block -rotate-2">and also...</span>
+          <span className="font-hand text-xl text-orange block -rotate-2">side builds</span>
           <h3 className="font-display text-5xl sm:text-6xl uppercase leading-none m-0">Other Projects</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[860px] mx-auto">
             {otherProjects.map((project, index) => (
                 <motion.div
-                   className={`relative p-6 pt-8 shadow-md flex flex-col ${index % 2 ? 'bg-sky rotate-1' : 'bg-yellow -rotate-1'}`}
+                   className={`relative p-6 pt-8 card-hard flex flex-col ${index % 2 ? 'bg-white' : 'bg-yellow'}`}
                    key={project.title}
                    initial={{ opacity: 0, y: 20 }}
                    whileInView={{ opacity: 1, y: 0 }}
-                   whileHover={{ rotate: 0, y: -4 }}
+                   whileHover={{ x: -3, y: -3 }}
                    viewport={{ once: true, margin: "-50px" }}
                    transition={{ duration: 0.4, delay: index * 0.1 }}
                 >
@@ -186,10 +186,10 @@ const Projects = () => {
                             <FiGithub />
                         </a>
                     </div>
-                    <p className="font-hand text-lg leading-snug mb-5 flex-grow">{project.desc}</p>
+                    <p className="text-[0.95rem] leading-relaxed mb-5 flex-grow">{project.desc}</p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                         {project.tech.map((t) => (
-                            <span key={t} className="mono-label px-2 py-0.5 bg-white/70 border border-ink/30">{t}</span>
+                            <span key={t} className="mono-label px-2 py-0.5 bg-white border border-ink">{t}</span>
                         ))}
                     </div>
                 </motion.div>
