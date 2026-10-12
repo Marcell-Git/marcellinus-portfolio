@@ -16,7 +16,7 @@ const Projects = () => {
   const featuredProjects = [
     {
       title: 'Online Cinema Ticketing Platform',
-      desc: 'A web-based application for searching movies, viewing showtimes, and booking cinema tickets online.',
+      desc: 'A full-featured cinema web app with seat booking, food ordering, secure payments, and an admin panel for movies, showtimes and transaction reports.',
       tech: ['React.js', 'Laravel', 'MySQL', 'Bootstrap'],
       github: ['https://github.com/Marcell-Git/Bioskop_Frontend', 'https://github.com/rendyputrayana/backendp3l'],
       demo: '#',
@@ -24,26 +24,26 @@ const Projects = () => {
     },
     {
       title: 'Website ReUseMart',
-      desc: 'A web-based application for buying and selling used goods.',
-      tech: ['React.js', 'Laravel', 'MySQL', 'Bootstrap'],
+      desc: 'A web and mobile second-hand marketplace with secure transactions and role-based access for CS, warehouse staff, buyers, consignors and owners.',
+      tech: ['React.js', 'Laravel', '.NET', 'MySQL'],
       github: ['https://github.com/Agplhh/Frontendp3l', 'https://github.com/Agplhh/Backendp3l'],
       demo: '#',
       image: reusemart
     },
     {
       title: 'WBS Pemerintahan Kabupaten Klaten',
-      desc: 'A web-based application for reporting complaints and suggestions to the government of Klaten Regency.',
+      desc: 'A government website built during my internship at Diskominfo Klaten for reporting complaints and suggestions, with authentication and role-based access.',
       tech: ['React.js','Laravel', 'MySQL', 'Tailwind CSS'],
       github: ['https://github.com/Marcell-Git/Frontend-WBS', 'https://github.com/Marcell-Git/Backend-WBS'],
-      demo: 'https://wbs.dev.klaten.go.id/',
+      demo: '#',
       image: wbs
     },
     {
       title: 'Profil RSUD Bagas Waras Klaten',
-      desc: 'A web-based application for the official profile of RSUD Bagas Waras Klaten.',
+      desc: 'The official hospital website of RSUD Bagas Waras Klaten, built as IT Staff with Laravel, React and a responsive UI.',
       tech: ['React.js','Laravel', 'MySQL', 'Tailwind CSS'],
-      github: ['https://github.com/Marcell-Git/Frontend-RSUD', 'https://github.com/Marcell-Git/Backend-RSUD'],
-      demo: '#',
+      github: '#',
+      demo: 'https://rsud-bagaswaras.klaten.go.id',
       image: rsud
     }
   ];
@@ -67,15 +67,21 @@ const Projects = () => {
   const otherProjects = [
     {
       title: 'GYM Application',
-      desc: 'A mobile application for booking sports classes, viewing schedules, and borrowing sports equipment.',
+      desc: 'A cross-platform gym app for booking trainer sessions and renting equipment, with REST APIs for payments and real-time availability. Capstone project.',
       tech: ['Flutter', 'Laravel', 'MySQL'],
       github: ['https://github.com/AndreasKuncoro11788/2_B_Gym', 'https://github.com/Marcell-Git/API_Gym'],
     },
     {
-      title: 'Portfolio V1',
-      desc: 'My first personal portfolio website showcasing my early progression as a developer.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      github: 'https://github.com/Marcell-Git/Personal-Website',
+      title: 'FinTrack',
+      desc: 'A personal finance web app for recording and tracking daily expenses.',
+      tech: ['Next.js', 'Node.js', 'PostgreSQL'],
+      github: ['https://github.com/Marcell-Git/frontend-fintrack.git', 'https://github.com/Marcell-Git/backend-fintrack.git'],
+    },
+    {
+      title: 'Village Profile Website',
+      desc: 'A village company-profile website with resident records, cash dues and expense tracking, village inventory, community activity schedules, financial reports, and village administration management.',
+      tech: ['Go', 'React.js', 'PostgreSQL'],
+      github: ['https://github.com/Marcell-Git/Frontend-website-desa.git', 'https://github.com/Marcell-Git/Backend-website-desa.git'],
     }
   ];
 
