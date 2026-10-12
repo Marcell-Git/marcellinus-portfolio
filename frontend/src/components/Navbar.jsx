@@ -1,83 +1,101 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiMail } from "react-icons/fi";
+
+const navLinks = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Toolbox", href: "#skills" },
+  { name: "Works", href: "#projects" },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("#home");
 
+  // Highlight the tab of the section currently in view
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const sections = [...navLinks.map((l) => l.href), "#contact"]
+      .map((h) => document.querySelector(h))
+      .filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
-  const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ];
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-primary-bg/90 backdrop-blur-md py-4 shadow-sm" : "py-6 bg-transparent"}`}
-    >
-      <div className="container flex justify-between items-center">
-        <a
-          href="#"
-          className="text-2xl font-bold text-text-main tracking-tighter"
-        >
-          MRM<span className="text-accent"></span>
-        </a>
-
-        <div className="hidden md:flex gap-10 items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
+      <div className="container flex justify-between items-center h-14">
+        <div className="hidden md:flex gap-1 items-center">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="font-medium text-text-secondary hover:text-accent relative group text-[0.95rem] transition-colors"
+              className={`mono-label flex items-center gap-1.5 px-3 py-1.5 transition-colors ${
+                active === link.href ? "bg-yellow text-ink font-bold" : "text-ink-soft hover:text-ink"
+              }`}
             >
+              <span className={`w-1.5 h-1.5 rounded-full ${active === link.href ? "bg-ink" : "bg-ink/40"}`} />
               {link.name}
-              <span className="absolute w-0 h-[2px] bottom-[-4px] left-0 bg-accent transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
         </div>
 
-        <button
-          className="md:hidden text-text-main"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Navigation"
-        >
-          {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
+        <a href="#home" className="md:hidden font-display text-3xl leading-none">MRM</a>
 
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              className="absolute top-full left-0 right-0 bg-primary-bg p-8 shadow-lg flex flex-col items-center gap-6 border-t border-gray-100 md:hidden"
-              initial={{ opacity: 0, y: -20, display: "none" }}
-              animate={{ opacity: 1, y: 0, display: "flex" }}
-              exit={{ opacity: 0, y: -20, transition: { duration: 0.1 } }}
-              transition={{ duration: 0.2 }}
-            >
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="font-medium text-text-secondary hover:text-accent text-lg"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex gap-1.5" aria-hidden="true">
+            <span className="w-3.5 h-3.5 rounded-full bg-orange border border-ink/20" />
+            <span className="w-3.5 h-3.5 rounded-full bg-pink border border-ink/20" />
+            <span className="w-3.5 h-3.5 rounded-full bg-green border border-ink/20" />
+          </div>
+          <a
+            href="#contact"
+            className={`hidden md:flex mono-label items-center gap-1.5 border border-ink px-3 py-1.5 font-bold transition-colors ${
+              active === "#contact" ? "bg-ink text-white" : "hover:bg-ink hover:text-white"
+            }`}
+          >
+            <FiMail /> Contact
+          </a>
+          <button
+            className="md:hidden text-ink p-1"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="md:hidden absolute top-full left-0 right-0 bg-paper border-b border-ink/10 px-4 py-4 flex flex-col gap-1"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10, transition: { duration: 0.1 } }}
+            transition={{ duration: 0.2 }}
+          >
+            {[...navLinks, { name: "Contact", href: "#contact" }].map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`mono-label px-3 py-3 ${active === link.href ? "bg-yellow font-bold" : "text-ink-soft"}`}
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
