@@ -1,98 +1,108 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiMail, FiLinkedin, FiGithub } from 'react-icons/fi';
-import profileImg from '../assets/Profile.jpeg';
-import aboutImg from '../assets/About.jpeg';
-import Frame from './Frame';
+import { FiMail } from 'react-icons/fi';
+import { VscTerminal, VscClose, VscAdd } from 'react-icons/vsc';
+import { EditorSection } from './syntax';
+import { FileIcon } from './Shell';
 
-const links = [
-  { label: 'Email', href: 'mailto:rendimardiyanto72@gmail.com', icon: <FiMail /> },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/marcellinus-renditta-4900a6312', icon: <FiLinkedin /> },
-  { label: 'GitHub', href: 'https://github.com/Marcell-Git', icon: <FiGithub /> },
+const contacts = [
+  { key: 'email', label: 'rendimardiyanto72@gmail.com', href: 'mailto:rendimardiyanto72@gmail.com' },
+  { key: 'linkedin', label: 'linkedin.com/in/marcellinus-renditta', href: 'https://www.linkedin.com/in/marcellinus-renditta-4900a6312' },
+  { key: 'github', label: 'github.com/Marcell-Git', href: 'https://github.com/Marcell-Git' },
 ];
+
+const Prompt = ({ children }) => (
+  <div>
+    <span className="text-syn-tag">marcell@portfolio</span>
+    <span className="text-muted">:</span>
+    <span className="text-syn-prop">~</span>
+    <span className="text-muted">$ </span>
+    <span className="text-fg">{children}</span>
+  </div>
+);
+
+// Each terminal block types in one after another once the panel scrolls into view
+const line = {
+  hidden: { opacity: 0, y: 4 },
+  show: { opacity: 1, y: 0 },
+};
 
 const Contact = () => {
   return (
-    <>
-      <section id="contact" className="section-padding relative overflow-hidden">
-        <div className="container text-center">
-          <span className="font-hand text-xl text-orange block -rotate-2 mb-1">let's build something</span>
-          <h2 className="pixel-title m-0">Let's Talk</h2>
-          <p className="font-mono text-sm sm:text-base text-ink-soft mt-4 mb-14">
-            Got a project, a role, or a hard problem? I read every message.
-          </p>
+    <EditorSection id="contact" file="contact.sh" icon={<FileIcon name="contact.sh" />} className="border-b-0">
+      <div className="max-w-[900px]">
+        <h2 className="font-sans text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+          Let's work together<span className="text-accent">.</span>
+        </h2>
+        <p className="text-fg/70 text-[1.05rem] max-w-[560px] mb-8">
+          I'm currently open for new opportunities and collaborations. Whether you have a question or
+          just want to say hi, my inbox is always open.
+        </p>
+        <a href="mailto:rendimardiyanto72@gmail.com" className="btn btn-primary mb-12">
+          <FiMail /> Say hello
+        </a>
 
-          <div className="relative max-w-[900px] mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-6">
-            <motion.figure
-              className="polaroid m-0 w-[180px] -rotate-2 hidden md:block"
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="tape -top-3 left-1/2 -translate-x-1/2 -rotate-3" />
-              <img src={aboutImg} alt="" className="w-full aspect-square object-cover grayscale" />
-              <figcaption className="mono-label text-ink-soft mt-2">the workshop</figcaption>
-            </motion.figure>
+        {/* Terminal panel */}
+        <div className="rounded-md border border-line bg-panel overflow-hidden">
+          <div className="h-9 flex items-center gap-5 px-4 border-b border-line font-mono text-[11px] tracking-wider text-muted">
+            <span className="hidden sm:inline">PROBLEMS</span>
+            <span className="hidden sm:inline">OUTPUT</span>
+            <span className="text-fg border-b border-accent h-full flex items-center">TERMINAL</span>
+            <span className="ml-auto flex items-center gap-3 text-sm">
+              <span className="hidden sm:flex items-center gap-1 text-[11px]"><VscTerminal /> zsh</span>
+              <VscAdd />
+              <VscClose />
+            </span>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <Frame className="p-3">
-                <div className="bg-yellow p-6 sm:p-8 text-left max-w-[400px] card-hard">
-                  <span className="mono-label font-bold block mb-3">● Open channel</span>
-                  <p className="font-mono text-sm leading-relaxed m-0 mb-6">
-                    I'm currently open for new opportunities and collaborations. Whether you have
-                    a question or just want to say hi, feel free to reach out!
-                  </p>
-                  <a href="mailto:rendimardiyanto72@gmail.com" className="btn-ink" style={{ boxShadow: '3px 3px 0 var(--ink-soft)' }}>
-                    <FiMail /> Write me an email
-                  </a>
-                </div>
-              </Frame>
+          <motion.div
+            className="p-4 sm:p-5 font-mono text-[13px] sm:text-sm leading-7 space-y-1"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ staggerChildren: 0.35 }}
+          >
+            <motion.div variants={line}>
+              <Prompt>whoami</Prompt>
+              <div className="text-fg/75">Marcellinus Renditta Mardyanto — software engineer, open to work</div>
             </motion.div>
 
-            <motion.figure
-              className="polaroid m-0 w-[180px] rotate-2 hidden md:block"
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <span className="tape -top-3 -right-3 rotate-45" />
-              <img src={profileImg} alt="" className="w-full aspect-square object-cover grayscale" />
-              <figcaption className="mono-label text-ink-soft mt-2">— marcell</figcaption>
-            </motion.figure>
-          </div>
+            <motion.div variants={line} className="pt-2">
+              <Prompt>cat contact.txt</Prompt>
+              {contacts.map((c) => (
+                <div key={c.key} className="flex flex-wrap gap-x-2">
+                  <span className="text-syn-const w-20 shrink-0">{c.key}</span>
+                  <span className="text-muted">→</span>
+                  <a
+                    href={c.href}
+                    target={c.href.startsWith('http') ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className="text-syn-str underline decoration-dotted underline-offset-4 hover:text-white break-all"
+                  >
+                    {c.label}
+                  </a>
+                </div>
+              ))}
+            </motion.div>
 
-          <p className="mono-label text-ink-soft mt-12 mb-4">↳ open to new roles and hard problems</p>
-          <div className="inline-flex border-2 border-ink bg-white divide-x-2 divide-ink shadow-[4px_4px_0_var(--ink)]">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith('http') ? '_blank' : undefined}
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1 px-5 sm:px-7 py-3 hover:bg-yellow transition-colors"
-              >
-                <span className="text-xl">{link.icon}</span>
-                <span className="mono-label">{link.label}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+            <motion.div variants={line} className="pt-2">
+              <Prompt>echo "Let's build something great."</Prompt>
+              <div className="text-fg/75">Let's build something great.</div>
+            </motion.div>
 
-      <footer className="bg-ink text-white/70 py-6">
-        <div className="container flex flex-col sm:flex-row justify-between items-center gap-2 mono-label">
-          <span>&copy; {new Date().getFullYear()} Marcellinus Renditta Mardyanto</span>
-          <span>Designed &amp; built with React.js</span>
+            <motion.div variants={line} className="pt-2">
+              <Prompt>
+                <span className="inline-block w-2 h-4 bg-fg/80 align-middle cursor-blink" />
+              </Prompt>
+            </motion.div>
+          </motion.div>
         </div>
-      </footer>
-    </>
+
+        <p className="font-mono text-xs text-muted mt-12 mb-0">
+          © {new Date().getFullYear()} Marcellinus Renditta Mardyanto · built with React + Vite
+        </p>
+      </div>
+    </EditorSection>
   );
 };
 

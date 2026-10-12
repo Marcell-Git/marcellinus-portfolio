@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiX, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import { VscRepo, VscChevronRight } from 'react-icons/vsc';
 import bioskop from '../assets/bioskop.png';
 import reusemart from '../assets/reuse.png';
 import wbs from '../assets/wbs.png';
 import rsud from '../assets/Profil_rsud.png';
+import { EditorSection, Code, L, K, F, N, C, T } from './syntax';
+import { FileIcon } from './Shell';
 
-const cardThemes = [
-  { tab: 'bg-yellow text-ink', dot: 'bg-ink', body: 'bg-ink text-white', muted: 'text-white/70', chip: 'border-white/30 text-white/80' },
-  { tab: 'bg-ink text-white', dot: 'bg-yellow', body: 'bg-yellow text-ink card-hard', muted: 'text-ink/75', chip: 'border-ink/50' },
-  { tab: 'bg-orange text-white', dot: 'bg-white', body: 'bg-army text-white', muted: 'text-white/75', chip: 'border-white/40 text-white/85' },
-  { tab: 'bg-ink text-white', dot: 'bg-orange', body: 'bg-white text-ink card-hard', muted: 'text-ink-soft', chip: 'border-ink/40' },
-];
+// Turn a project title into a folder-like slug, e.g. "Website ReUseMart" -> "website-reusemart"
+const slug = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
 const Projects = () => {
   const featuredProjects = [
@@ -80,177 +79,156 @@ const Projects = () => {
     }
   ];
 
+  // Close the repo picker with Escape, like a command palette
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && setActiveModal(null);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   return (
-    <section id="projects" className="section-padding relative">
-      <div className="container">
-        <div className="mb-14">
-          <span className="font-hand text-xl text-orange block -rotate-2 mb-2">built &amp; shipped</span>
-          <h2 className="pixel-title m-0">Featured Works</h2>
-        </div>
+    <EditorSection id="projects" file="projects.ts" icon={<FileIcon name="projects.ts" />}>
+      <div className="max-w-[1200px]">
+        <Code className="mb-8">
+          <L><K>import</K> {'{'} <N>Project</N> {'}'} <K>from</K> <span className="text-syn-str">"@/types"</span>;</L>
+          <L />
+          <L><C>// {featuredProjects.length} featured builds, shipped with real users in mind</C></L>
+          <L><K>export const</K> <F>featured</F>: <N>Project</N>[] = [ ... ];</L>
+        </Code>
+        <h2 className="font-sans text-3xl sm:text-4xl font-bold text-white mb-8">Featured Projects</h2>
 
-        <div className="flex flex-col gap-10 md:gap-14 mb-24">
-            {featuredProjects.map((project, index) => {
-                const theme = cardThemes[index % cardThemes.length];
-                return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            {featuredProjects.map((project, index) => (
                 <motion.article
-                   className="relative pt-9"
+                   className="group rounded-md border border-line bg-surface overflow-hidden flex flex-col hover:border-accent/60 transition-colors"
                    key={project.title}
-                   initial={{ opacity: 0, y: 40 }}
+                   initial={{ opacity: 0, y: 30 }}
                    whileInView={{ opacity: 1, y: 0 }}
-                   viewport={{ once: true, margin: "-100px" }}
-                   transition={{ duration: 0.6 }}
+                   viewport={{ once: true, margin: "-80px" }}
+                   transition={{ duration: 0.5, delay: (index % 2) * 0.1 }}
                 >
-                    {/* Folder tab */}
-                    <div
-                      className={`absolute top-0 left-0 h-10 pl-4 pr-10 flex items-center gap-2 mono-label font-bold ${theme.tab}`}
-                      style={{ clipPath: 'polygon(0 0, calc(100% - 28px) 0, 100% 100%, 0 100%)' }}
-                    >
-                      <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
-                      Project {String(index + 1).padStart(2, '0')}
+                    <div className="h-9 flex items-center gap-2 px-3 border-b border-line bg-side font-mono text-xs text-muted">
+                      <FileIcon name="x.md" className="shrink-0" /> <span className="truncate">{slug(project.title)}/README.md</span>
+                      <span className="ml-auto text-gutter">0{index + 1}</span>
                     </div>
-
-                    <div className={`grid grid-cols-1 md:grid-cols-[1fr_1.15fr] gap-8 p-6 sm:p-10 group ${theme.body}`}>
-                        <div className="flex flex-col">
-                            <h3 className="font-sans text-3xl sm:text-4xl font-bold tracking-tight mb-3">{project.title}</h3>
-                            <p className={`text-[0.95rem] leading-relaxed mb-6 max-w-[440px] ${theme.muted}`}>{project.desc}</p>
-                            <div className="flex flex-wrap gap-2 mb-8">
-                                {project.tech.map((t) => (
-                                    <span key={t} className={`mono-label px-2 py-1 border ${theme.chip}`}>{t}</span>
-                                ))}
-                            </div>
-                            <div className="flex flex-wrap gap-5 mt-auto">
-                                <a
-                                    href={Array.isArray(project.github) ? project.github[0] : project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="mono-label font-bold flex items-center gap-2 underline underline-offset-4 hover:no-underline"
-                                    onClick={(e) => handleGithubClick(e, project.github)}
-                                >
-                                    <FiGithub /> View code →
-                                </a>
-                                {project.demo !== '#' && (
-                                  <a
-                                    href={project.demo}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="mono-label font-bold flex items-center gap-2 underline underline-offset-4 hover:no-underline"
-                                  >
-                                    <FiExternalLink /> Live site →
-                                  </a>
-                                )}
-                            </div>
+                    <div className="aspect-[16/9] overflow-hidden bg-editor border-b border-line">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-5 flex flex-col flex-1">
+                        <h3 className="font-sans text-xl font-bold text-white mb-2">{project.title}</h3>
+                        <p className="text-sm leading-relaxed text-fg/70 mb-5 flex-1">{project.desc}</p>
+                        <div className="flex flex-wrap gap-2 mb-5">
+                            {project.tech.map((t) => (
+                                <span key={t} className="chip"><T>#</T>{t}</span>
+                            ))}
                         </div>
-                        <div className="bg-white p-2 border-2 border-ink shadow-[6px_6px_0_var(--orange)] self-center transition-transform duration-300 group-hover:-translate-y-1">
-                            <div className="aspect-[16/10] overflow-hidden bg-gray-100">
-                              <img
-                                src={project.image}
-                                alt={project.title}
-                                loading="lazy"
-                                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                              />
-                            </div>
+                        <div className="flex flex-wrap gap-3">
+                            <a
+                                href={Array.isArray(project.github) ? project.github[0] : project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-ghost !py-1.5 !text-xs"
+                                onClick={(e) => handleGithubClick(e, project.github)}
+                            >
+                                <FiGithub /> Source
+                            </a>
+                            {project.demo !== '#' && (
+                              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn-primary !py-1.5 !text-xs">
+                                <FiExternalLink /> Live site
+                              </a>
+                            )}
                         </div>
                     </div>
                 </motion.article>
-                );
-            })}
-        </div>
-
-        <div className="text-center mb-10">
-          <span className="font-hand text-xl text-orange block -rotate-2">side builds</span>
-          <h3 className="font-display text-5xl sm:text-6xl uppercase leading-none m-0">Other Projects</h3>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[860px] mx-auto">
-            {otherProjects.map((project, index) => (
-                <motion.div
-                   className={`relative p-6 pt-8 card-hard flex flex-col ${index % 2 ? 'bg-white' : 'bg-yellow'}`}
-                   key={project.title}
-                   initial={{ opacity: 0, y: 20 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   whileHover={{ x: -3, y: -3 }}
-                   viewport={{ once: true, margin: "-50px" }}
-                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                >
-                    <span className="tape -top-2.5 left-1/2 -translate-x-1/2" />
-                    <div className="flex justify-between items-start mb-3">
-                        <h4 className="text-xl font-bold m-0">{project.title}</h4>
-                        <a
-                            href={Array.isArray(project.github) ? project.github[0] : project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${project.title} on GitHub`}
-                            className="text-xl hover:scale-110 transition-transform"
-                            onClick={(e) => handleGithubClick(e, project.github)}
-                        >
-                            <FiGithub />
-                        </a>
-                    </div>
-                    <p className="text-[0.95rem] leading-relaxed mb-5 flex-grow">{project.desc}</p>
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                        {project.tech.map((t) => (
-                            <span key={t} className="mono-label px-2 py-0.5 bg-white border border-ink">{t}</span>
-                        ))}
-                    </div>
-                </motion.div>
             ))}
         </div>
 
+        <Code className="mb-4">
+          <L><C>// other projects</C></L>
+          <L><K>export const</K> <F>others</F>: <N>Project</N>[] = [</L>
+        </Code>
+        <div className="flex flex-col gap-3 pl-0 sm:pl-[3.25rem]">
+            {otherProjects.map((project, index) => (
+                <motion.a
+                   key={project.title}
+                   href={Array.isArray(project.github) ? project.github[0] : project.github}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   onClick={(e) => handleGithubClick(e, project.github)}
+                   className="group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 rounded-md border border-line bg-surface/60 px-4 py-3 hover:border-accent/60 transition-colors"
+                   initial={{ opacity: 0, x: -16 }}
+                   whileInView={{ opacity: 1, x: 0 }}
+                   viewport={{ once: true, margin: "-40px" }}
+                   transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                    <div className="flex items-center gap-2 font-mono text-sm text-white sm:w-56 shrink-0">
+                      <VscRepo className="text-muted" /> {project.title}
+                    </div>
+                    <p className="text-sm text-fg/65 m-0 flex-1">{project.desc}</p>
+                    <div className="flex flex-wrap gap-2 shrink-0">
+                        {project.tech.map((t) => (
+                            <span key={t} className="chip">{t}</span>
+                        ))}
+                    </div>
+                    <VscChevronRight className="hidden sm:block text-muted group-hover:text-accent" />
+                </motion.a>
+            ))}
+        </div>
+        <Code className="mt-4">
+          <L>];</L>
+        </Code>
       </div>
 
       <AnimatePresence>
         {activeModal && (
-          <motion.div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          <motion.div
+            className="fixed inset-0 z-50 flex items-start justify-center pt-[12vh] px-4 bg-black/50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveModal(null)}
           >
-            <motion.div 
-              className="bg-paper border border-ink shadow-[6px_6px_0_var(--ink)] w-full max-w-md overflow-hidden relative"
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
+            <motion.div
+              className="w-full max-w-lg rounded-lg border border-line bg-surface shadow-2xl overflow-hidden font-mono"
+              initial={{ y: -12, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -12, opacity: 0 }}
+              transition={{ duration: 0.15 }}
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-label="Select repository"
             >
-              <div className="p-5 border-b border-ink flex justify-between items-center bg-yellow">
-                <h3 className="font-display text-3xl uppercase leading-none m-0">Select Repository</h3>
-                <button 
-                  onClick={() => setActiveModal(null)}
-                  aria-label="Close"
-                  className="p-2 hover:bg-ink hover:text-white transition-colors"
-                >
-                  <FiX size={20} />
-                </button>
+              <div className="m-2 rounded border border-accent bg-editor px-3 py-2 text-sm text-fg">
+                <span className="text-muted">&gt;</span> Git: Open Repository…
               </div>
-              
-              <div className="p-6 flex flex-col gap-4">
-                <p className="text-ink-soft text-sm m-0">
-                  This project consists of multiple repositories. Please select which one you would like to view:
-                </p>
-                {activeModal.map((url, idx) => (
-                  <a 
-                    key={idx}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex justify-between items-center p-4 bg-white border border-ink hover:bg-ink hover:text-white group transition-all duration-200"
-                    onClick={() => setActiveModal(null)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <FiGithub className="text-xl" />
-                      <span className="font-semibold">{getLinkLabel(url)}</span>
-                    </div>
-                    <FiExternalLink className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
+              <ul className="m-0 p-0 pb-2 list-none">
+                {activeModal.map((url) => (
+                  <li key={url}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent/20 group"
+                      onClick={() => setActiveModal(null)}
+                    >
+                      <FiGithub className="text-muted group-hover:text-fg" />
+                      <span className="text-fg">{getLinkLabel(url)}</span>
+                      <span className="ml-auto text-xs text-muted truncate max-w-[45%]">{url.replace('https://github.com/', '')}</span>
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
+              <div className="border-t border-line px-4 py-1.5 text-[11px] text-muted">esc to close</div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </EditorSection>
   );
 };
 

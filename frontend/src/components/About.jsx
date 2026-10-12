@@ -2,105 +2,77 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import profileImg from '../assets/Profile.jpeg';
 import aboutImg from '../assets/About.jpeg';
-
-const focusTags = [
-  { label: 'Frontend Dev', className: 'bg-yellow' },
-  { label: 'Backend Dev', className: 'bg-ink text-white' },
-  { label: 'REST API', className: 'bg-orange text-white' },
-  { label: 'Clean Code', className: 'bg-army text-white' },
-];
+import { EditorSection } from './syntax';
+import { FileIcon } from './Shell';
 
 const stats = [
-  { value: '2+', label: 'Years coding', className: 'bg-yellow' },
-  { value: '10+', label: 'Projects done', className: 'bg-white' },
-  { value: '8th', label: 'Semester, Informatics', className: 'bg-ink text-white' },
+  { value: '2+', label: 'years coding' },
+  { value: '10+', label: 'projects completed' },
+  { value: '8th', label: 'semester, Informatics' },
 ];
 
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
+const reveal = {
+  initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-80px' },
-  transition: { duration: 0.6, delay },
-});
+  transition: { duration: 0.5 },
+};
 
-const Polaroid = ({ src, caption, className = '', tapeClass = '' }) => (
-  <motion.figure
-    className={`polaroid m-0 ${className}`}
-    whileHover={{ rotate: 0, scale: 1.04 }}
-    transition={{ type: 'spring', stiffness: 250, damping: 18 }}
-  >
-    <span className={`tape ${tapeClass}`} />
-    <img src={src} alt={caption} className="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-[filter] duration-500" />
-    <figcaption className="mono-label text-ink-soft text-center mt-2">{caption}</figcaption>
-  </motion.figure>
+// Markdown syntax marker, rendered faintly like an editor preview
+const Md = ({ children }) => <span className="font-mono text-muted/70 font-normal mr-2">{children}</span>;
+const Bold = ({ children }) => (
+  <strong className="text-white font-semibold">
+    <span className="font-mono text-muted/60 font-normal">**</span>{children}<span className="font-mono text-muted/60 font-normal">**</span>
+  </strong>
 );
 
 const About = () => {
   return (
-    <section id="about" className="section-padding relative">
-      <div className="container">
-        <motion.div className="flex items-end gap-4 mb-12 md:mb-16" {...reveal()}>
-          <h2 className="pixel-title m-0">About</h2>
-          <span className="font-hand text-lg text-orange mb-2 -rotate-3">who's this guy?</span>
+    <EditorSection id="about" file="about.md" icon={<FileIcon name="about.md" />}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 max-w-[1100px]">
+        <motion.div {...reveal}>
+          <h2 className="font-sans text-3xl sm:text-4xl font-bold text-white mb-6">
+            <Md>#</Md>About Me
+          </h2>
+          <div className="space-y-5 text-[1.05rem] leading-relaxed text-fg/75 max-w-[680px]">
+            <p className="m-0">
+              Hi there! I'm <Bold>Marcellinus Renditta Mardyanto</Bold>, an 8th-semester Informatics
+              student passionate about Software Engineering. I've spent my university years diving deep
+              into web development and building applications that solve real problems.
+            </p>
+            <p className="m-0">
+              My focus is full-stack development. I enjoy the creative freedom of <Bold>React.js</Bold> on
+              the frontend and the structured robustness of <Bold>Laravel</Bold> on the backend. I believe
+              code should not only work — it should be clean, scalable and maintainable.
+            </p>
+            <blockquote className="m-0 border-l-4 border-accent/70 bg-surface/60 pl-4 py-2 text-fg/80">
+              Approaching graduation and actively looking for opportunities to contribute to impactful
+              projects and keep growing as a developer.
+            </blockquote>
+          </div>
+
+          <h3 className="font-sans text-xl font-bold text-white mt-10 mb-4">
+            <Md>##</Md>Quick stats
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-[680px]">
+            {stats.map((s) => (
+              <div key={s.label} className="rounded-md border border-line bg-surface p-4">
+                <div className="font-mono text-3xl font-bold text-syn-const">{s.value}</div>
+                <div className="font-mono text-xs text-muted mt-1">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[200px_1fr_200px] lg:grid-cols-[230px_1fr_230px] gap-10 md:gap-12 items-start">
-          <motion.div className="max-w-[230px] mx-auto md:mx-0 md:mt-10" {...reveal(0.1)}>
-            <Polaroid
-              src={profileImg}
-              caption="that's me"
-              className="-rotate-2"
-              tapeClass="-top-3 left-1/2 -translate-x-1/2 -rotate-3"
-            />
-          </motion.div>
-
-          <motion.div {...reveal(0.2)}>
-            <span className="sticker bg-yellow mb-6">// what's up</span>
-            <div className="text-lg sm:text-xl leading-[1.7] text-ink space-y-5">
-              <p className="m-0">
-                Hi! I'm <span className="font-bold bg-yellow px-1">Marcellinus Renditta Mardyanto</span>, an
-                8th-semester Informatics student who gets a little too excited about building
-                apps that solve real problems.
-              </p>
-              <p className="m-0">
-                I love the creative freedom of <strong className="border-b-4 border-orange">React.js</strong> on the
-                frontend and the structured robustness of <strong className="border-b-4 border-army">Laravel</strong> on
-                the backend. Code should not only work — it should be clean, scalable and maintainable.
-              </p>
-              <p className="m-0">
-                Now approaching graduation, I'm looking for a place to contribute to impactful
-                projects and keep growing as a developer.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3 mt-8">
-              {focusTags.map((tag) => (
-                <span key={tag.label} className={`sticker ${tag.className}`}>{tag.label}</span>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div className="max-w-[230px] mx-auto md:mx-0" {...reveal(0.3)}>
-            <Polaroid
-              src={aboutImg}
-              caption="my workspace"
-              className="rotate-2"
-              tapeClass="-top-3 -right-4 rotate-[35deg]"
-            />
-          </motion.div>
-        </div>
-
-        <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 max-w-[760px] mx-auto" {...reveal(0.2)}>
-          {stats.map((s) => (
-            <div key={s.label} className={`relative p-5 card-hard ${s.className}`}>
-              <span className="tape -top-2.5 left-1/2 -translate-x-1/2 w-12 h-4" />
-              <div className="font-display text-6xl leading-none">{s.value}</div>
-              <div className="mono-label mt-1 opacity-75">{s.label}</div>
-            </div>
-          ))}
+        <motion.div {...reveal} transition={{ duration: 0.5, delay: 0.15 }} className="space-y-3">
+          <p className="font-mono text-xs text-muted m-0">
+            ![workspace](<span className="text-syn-str">./About.jpeg</span>)
+          </p>
+          <img src={aboutImg} alt="Workspace" className="w-full aspect-square object-cover rounded-md border border-line" />
+          <img src={profileImg} alt="Marcellinus" className="lg:hidden w-full aspect-square object-cover rounded-md border border-line" />
         </motion.div>
       </div>
-    </section>
+    </EditorSection>
   );
 };
 

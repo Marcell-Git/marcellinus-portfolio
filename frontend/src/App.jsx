@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import Shell from './components/Shell';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -8,16 +8,13 @@ import Contact from './components/Contact';
 
 function App() {
   return (
-    <div className="App">
-       <Navbar />
-       <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Contact />
-       </main>
-    </div>
+    <Shell>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Contact />
+    </Shell>
   );
 }
 

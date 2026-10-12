@@ -1,131 +1,75 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
-import { FiGithub, FiLinkedin, FiArrowDown } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiPlay, FiDownload } from 'react-icons/fi';
 import profileImg from '../assets/Profile.jpeg';
-import aboutImg from '../assets/About.jpeg';
-import Frame from './Frame';
-
-// Floating sticky tags scattered around the name (hidden on small screens)
-const floatingTags = [
-  { label: 'React.js', className: 'bg-white -rotate-2 top-[8%] left-[6%]' },
-  { label: 'Laravel', className: 'bg-orange text-white rotate-1 top-[4%] right-[8%]' },
-  { label: 'Software Engineer', className: 'bg-yellow top-[46%] left-[2%]' },
-  { label: 'MySQL', className: 'bg-army text-white -rotate-1 top-[44%] right-[3%]' },
-];
-
-const pop = (delay) => ({
-  initial: { opacity: 0, y: 16, scale: 0.95 },
-  animate: { opacity: 1, y: 0, scale: 1 },
-  transition: { duration: 0.5, delay },
-});
+import { EditorSection, Code, L, K, S, F, P, N, C } from './syntax';
+import { FileIcon } from './Shell';
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-24 pb-20">
-      <div className="container relative">
-        <div className="relative max-w-[900px] mx-auto text-center py-10 md:py-16">
-          {floatingTags.map((tag, i) => (
-            <motion.span
-              key={tag.label}
-              className={`sticker absolute hidden md:inline-flex ${tag.className}`}
-              {...pop(0.5 + i * 0.1)}
-              drag
-              dragSnapToOrigin
-              whileHover={{ scale: 1.08 }}
-              style={{ cursor: 'grab' }}
-            >
-              {tag.label}
-            </motion.span>
-          ))}
-
-          {/* Floating avatars */}
-          <motion.img
-            src={profileImg}
-            alt=""
-            className="hidden md:block absolute bottom-[14%] left-[10%] w-14 h-14 object-cover border-2 border-ink shadow-[4px_4px_0_var(--ink)] grayscale"
-            {...pop(0.8)}
-          />
-          <motion.img
-            src={aboutImg}
-            alt=""
-            className="hidden md:block absolute bottom-[20%] right-[10%] w-14 h-14 object-cover border-2 border-ink shadow-[4px_4px_0_var(--ink)] grayscale"
-            {...pop(0.9)}
-          />
-
-          <motion.p className="font-hand text-xl text-orange mb-2 -rotate-2" {...pop(0.1)}>
-            Hey, I'm
-          </motion.p>
-
-          <motion.div className="inline-block" {...pop(0.2)}>
-            <Frame className="px-4 sm:px-8 pt-3 pb-1">
-              <h1 className="pixel-title m-0" style={{ fontSize: 'clamp(4rem, 15vw, 10rem)' }}>
-                Marcell
+    <EditorSection id="home" file="home.jsx" icon={<FileIcon name="home.jsx" />}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-center min-h-[calc(100dvh-160px)]">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <Code>
+            <L><C>// hello world, i'm</C></L>
+            <L className="!min-h-0 py-2">
+              <h1 className="font-sans font-extrabold tracking-tight leading-[1.05] text-white m-0 text-[2.4rem] sm:text-6xl xl:text-7xl">
+                Marcellinus Renditta Mardyanto<span className="text-accent">.</span>
               </h1>
-              <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap mono-label bg-ink text-white px-2 py-0.5 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow animate-pulse" />
-                Open to work &amp; new problems
-              </span>
-            </Frame>
-          </motion.div>
+            </L>
+            <L />
+            <L><K>const</K> <N>developer</N> = {'{'}</L>
+            <L indent={1}>
+              <P>role</P>: <span className="text-syn-str inline-flex">"<Typewriter
+                options={{
+                  strings: ['Software Engineer', 'Frontend Developer', 'Backend Developer'],
+                  autoStart: true,
+                  loop: true,
+                  deleteSpeed: 40,
+                  delay: 70,
+                }}
+              />"</span>,
+            </L>
+            <L indent={1}><P>stack</P>: [<S>React.js</S>, <S>Laravel</S>, <S>MySQL</S>, <S>Tailwind</S>],</L>
+            <L indent={1}><P>education</P>: <S>Informatics, 8th semester</S>,</L>
+            <L indent={1}><P>openToWork</P>: <K>true</K>,</L>
+            <L>{'};'}</L>
+            <L />
+            <L><C>// run it ↓</C></L>
+            <L className="!min-h-0 py-2">
+              <div className="flex flex-wrap gap-3">
+                <a href="#contact" className="btn btn-primary">
+                  <FiPlay /> developer.<F>contact</F>()
+                </a>
+                <a href="https://github.com/Marcell-Git" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                  <FiGithub /> GitHub
+                </a>
+                <a href="https://linkedin.com/in/marcellinus-renditta-4900a6312" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                  <FiLinkedin /> LinkedIn
+                </a>
+                <a href="/CV_Marcellinus.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                  <FiDownload /> CV
+                </a>
+              </div>
+            </L>
+          </Code>
+        </motion.div>
 
-          <motion.h2
-            className="mt-14 text-2xl sm:text-4xl font-extrabold uppercase tracking-tight leading-snug max-w-[640px] mx-auto"
-            {...pop(0.35)}
-          >
-            I build web apps that{' '}
-            <span className="inline-block bg-ink text-yellow px-2">just work.</span>
-          </motion.h2>
-
-          <motion.div className="font-mono text-sm sm:text-base text-ink-soft mt-4 h-6" {...pop(0.45)}>
-            <Typewriter
-              options={{
-                strings: ['Software Engineer', 'Frontend Developer', 'Backend Developer'],
-                autoStart: true,
-                loop: true,
-                deleteSpeed: 40,
-                delay: 70,
-              }}
-            />
-          </motion.div>
-
-          <motion.div className="flex flex-wrap gap-3 justify-center items-center mt-8" {...pop(0.55)}>
-            <a href="#contact" className="btn-ink">Contact me</a>
-            <a
-              href="https://github.com/Marcell-Git"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="w-10 h-10 flex items-center justify-center border-2 border-ink bg-white hover:bg-yellow transition-colors"
-            >
-              <FiGithub />
-            </a>
-            <a
-              href="https://linkedin.com/in/marcellinus-renditta-4900a6312"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="w-10 h-10 flex items-center justify-center border-2 border-ink bg-white hover:bg-yellow transition-colors"
-            >
-              <FiLinkedin />
-            </a>
-          </motion.div>
-
-          <p className="mono-label text-ink-soft mt-6">
-            Marcellinus Renditta Mardyanto
-          </p>
-        </div>
-
-        <motion.a
-          href="#about"
-          className="absolute -bottom-8 left-1/2 -translate-x-1/2 mono-label flex items-center gap-2 text-ink-soft"
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity }}
+        {/* Image preview tab */}
+        <motion.div
+          className="hidden lg:block rounded-md border border-line bg-surface overflow-hidden"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <FiArrowDown /> scroll
-        </motion.a>
+          <div className="h-8 flex items-center px-3 border-b border-line font-mono text-xs text-muted">
+            Profile.jpeg <span className="ml-auto">preview</span>
+          </div>
+          <img src={profileImg} alt="Marcellinus Renditta Mardyanto" className="w-full aspect-[4/5] object-cover" />
+        </motion.div>
       </div>
-    </section>
+    </EditorSection>
   );
 };
 
