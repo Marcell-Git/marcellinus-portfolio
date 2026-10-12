@@ -28,7 +28,6 @@ const goTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'sm
 
 const Explorer = ({ active, onPick }) => {
   const [srcOpen, setSrcOpen] = useState(true);
-  const [publicOpen, setPublicOpen] = useState(true);
 
   const row = 'w-full flex items-center gap-1.5 h-[22px] text-[13px] text-left hover:bg-white/5';
 
@@ -52,15 +51,6 @@ const Explorer = ({ active, onPick }) => {
             <FileIcon name={f.name} /> {f.name}
           </button>
         ))}
-
-      <button className={`${row} pl-4`} onClick={() => setPublicOpen(!publicOpen)}>
-        {publicOpen ? <VscChevronDown /> : <VscChevronRight />} public
-      </button>
-      {publicOpen && (
-        <a href="/CV_Marcellinus.pdf" target="_blank" rel="noopener noreferrer" className={`${row} pl-10`}>
-          <FileIcon name="cv.pdf" /> CV_Marcellinus.pdf
-        </a>
-      )}
     </div>
   );
 };
@@ -133,7 +123,7 @@ const Shell = ({ children }) => {
             </button>
           </div>
           <div>
-            <a className={activityBtn} href="https://linkedin.com/in/marcellinus-renditta-4900a6312" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <a className={activityBtn} href="https://www.linkedin.com/in/marcellinus-renditta/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
               <VscAccount />
             </a>
             <a className={activityBtn} href="https://github.com/Marcell-Git" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">

@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import profileImg from '../assets/Profile.jpeg';
-import aboutImg from '../assets/About.jpeg';
+import profileImg from '../assets/Profile.jpg';
+import aboutImg from '../assets/About.jpg';
 import { EditorSection } from './syntax';
 import { FileIcon } from './Shell';
 
 const stats = [
-  { value: '2+', label: 'years coding' },
+  { value: '3.76', label: 'GPA / 4.00, Informatics' },
   { value: '10+', label: 'projects completed' },
-  { value: '8th', label: 'semester, Informatics' },
+  { value: '2', label: 'professional roles' },
 ];
 
 const reveal = {
@@ -36,18 +36,20 @@ const About = () => {
           </h2>
           <div className="space-y-5 text-[1.05rem] leading-relaxed text-fg/75 max-w-[680px]">
             <p className="m-0">
-              Hi there! I'm <Bold>Marcellinus Renditta Mardyanto</Bold>, an 8th-semester Informatics
-              student passionate about Software Engineering. I've spent my university years diving deep
-              into web development and building applications that solve real problems.
+              Hi there! I'm <Bold>Marcellinus Renditta Mardyanto</Bold>, a Full-Stack Developer based in
+              Yogyakarta with professional experience developing and maintaining web and mobile applications
+              using <Bold>Laravel</Bold> and <Bold>React</Bold>. I studied Informatics at
+              Atma Jaya Yogyakarta University.
             </p>
             <p className="m-0">
-              My focus is full-stack development. I enjoy the creative freedom of <Bold>React.js</Bold> on
-              the frontend and the structured robustness of <Bold>Laravel</Bold> on the backend. I believe
-              code should not only work — it should be clean, scalable and maintainable.
+              I'm currently an <Bold>IT Staff at RSUD Bagas Waras</Bold> in Klaten, building hospital websites
+              and Flutter mobile apps and keeping SIMRS running reliably. Before that, I interned at Dinas
+              Komunikasi dan Informatika Kabupaten Klaten, developing a government website with
+              authentication and role-based access.
             </p>
             <blockquote className="m-0 border-l-4 border-accent/70 bg-surface/60 pl-4 py-2 text-fg/80">
-              Approaching graduation and actively looking for opportunities to contribute to impactful
-              projects and keep growing as a developer.
+              Skilled in REST API development, database management, authentication and role based access
+              control building reliable applications and troubleshooting real world systems.
             </blockquote>
           </div>
 

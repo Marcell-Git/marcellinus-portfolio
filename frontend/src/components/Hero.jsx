@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
-import { FiGithub, FiLinkedin, FiPlay, FiDownload } from 'react-icons/fi';
-import profileImg from '../assets/Profile.jpeg';
+import { FiGithub, FiLinkedin, FiPlay } from 'react-icons/fi';
+import profileImg from '../assets/Profile.jpg'
 import { EditorSection, Code, L, K, S, F, P, N, C } from './syntax';
 import { FileIcon } from './Shell';
 
@@ -23,7 +23,7 @@ const Hero = () => {
             <L indent={1}>
               <P>role</P>: <span className="text-syn-str inline-flex">"<Typewriter
                 options={{
-                  strings: ['Software Engineer', 'Frontend Developer', 'Backend Developer'],
+                  strings: ['Full-Stack Developer', 'Web Developer', 'Mobile Developer'],
                   autoStart: true,
                   loop: true,
                   deleteSpeed: 40,
@@ -31,8 +31,10 @@ const Hero = () => {
                 }}
               />"</span>,
             </L>
-            <L indent={1}><P>stack</P>: [<S>React.js</S>, <S>Laravel</S>, <S>MySQL</S>, <S>Tailwind</S>],</L>
-            <L indent={1}><P>education</P>: <S>Informatics, 8th semester</S>,</L>
+            <L indent={1}><P>stack</P>: [<S>React.js</S>, <S>Laravel</S>, <S>.NET</S>, <S>Flutter</S>],</L>
+            <L indent={1}><P>currently</P>: <S>IT Staff @ RSUD Bagas Waras</S>,</L>
+            <L indent={1}><P>education</P>: <S>Informatics, Atma Jaya Yogyakarta University</S>,</L>
+            <L indent={1}><P>location</P>: <S>Yogyakarta, Indonesia</S>,</L>
             <L indent={1}><P>openToWork</P>: <K>true</K>,</L>
             <L>{'};'}</L>
             <L />
@@ -45,11 +47,8 @@ const Hero = () => {
                 <a href="https://github.com/Marcell-Git" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
                   <FiGithub /> GitHub
                 </a>
-                <a href="https://linkedin.com/in/marcellinus-renditta-4900a6312" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                <a href="https://www.linkedin.com/in/marcellinus-renditta/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
                   <FiLinkedin /> LinkedIn
-                </a>
-                <a href="/CV_Marcellinus.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
-                  <FiDownload /> CV
                 </a>
               </div>
             </L>
