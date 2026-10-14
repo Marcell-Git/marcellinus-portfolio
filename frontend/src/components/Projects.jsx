@@ -35,7 +35,7 @@ const Projects = () => {
       desc: 'A government website built during my internship at Diskominfo Klaten for reporting complaints and suggestions, with authentication and role-based access.',
       tech: ['React.js','Laravel', 'MySQL', 'Tailwind CSS'],
       github: ['https://github.com/Marcell-Git/Frontend-WBS', 'https://github.com/Marcell-Git/Backend-WBS'],
-      demo: '#',
+      demo: 'https://wbs.dev.klaten.go.id/',
       image: wbs
     },
     {
